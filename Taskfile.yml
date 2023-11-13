@@ -28,7 +28,7 @@ tasks:
   version:
     cmds:
       - |
-        myVer=$(version --branch-name {{.BRANCH_NAME}} --run-number {{.RUN_NUMBER}})
+        myVer='1.0.0-{{.BRANCH_NAME}}+{{.RUN_NUMBER}}'
         echo "NEW_VERSION=$myVer" >> $GITHUB_OUTPUT
         echo "NEW_TAG=v$myVer" >> $GITHUB_OUTPUT
 
