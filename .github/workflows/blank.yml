@@ -52,6 +52,9 @@ jobs:
       - name: Get Version
         run: echo ${{ steps.version.outputs.VERSION }}
 
+      - name: Publish
+        run: tar -czf ./dist/artifacts/test.tar.gz .
+
       - name: upload artifacts
         uses: actions/upload-artifact@v3
         with:
