@@ -56,5 +56,5 @@ jobs:
       - name: upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: Artifacts
-          path: ./dist/artifacts 
+          name: artifacts
+          path: ./dist/
