@@ -6,6 +6,8 @@ on:
             - main
             - master
             - develop
+env:
+    GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 
 jobs:
     first:
@@ -21,6 +23,19 @@ jobs:
         if: startsWith(github.ref_name, 'master')
         needs: [first, second]
         steps:
+          - name: install nix
+            uses: DeterminateSystems/nix-installer-action@v4
+            with:
+              github-token: $GH_TOKEN
+              diagnostic-endpoint: ''
+              extra-conf: |
+                access-tokens = github.com="$GH_TOKEN"
+
+          - name: setup nix cache
+            uses: DeterminateSystems/magic-nix-cache-action@v2
+            with:
+              diagnostic-endpoint: ''
+                        
           - name: Download Artifacts
             id: download-artifacts
             uses: actions/download-artifact@v3

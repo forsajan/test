@@ -34,7 +34,7 @@ jobs:
       - name: setup nix cache
         uses: DeterminateSystems/magic-nix-cache-action@v2
         with:
-          diagnostic-endpoint: ''      
+          diagnostic-endpoint: ''   
 
       # Runs a single command using the runners shell
       - name: Version
