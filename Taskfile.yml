@@ -12,7 +12,7 @@ tasks:
       - |
         if [[ {{.BRANCH_NAME}} == "releases/"* ]]; then
           EBSI_ENV="prod"
-        elif [[ {{.BRANCH_NAME}} == 'main' ]]; then
+        elif [[ {{.BRANCH_NAME}} == 'main' || {{.BRANCH_NAME}} == 'master' ]]; then
           EBSI_ENV="prod"
         elif [[ {{.BRANCH_NAME}} == 'staging' ]]; then
           EBSI_ENV="staging"
