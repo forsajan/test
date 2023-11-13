@@ -8,12 +8,23 @@ on:
             - develop
 env:
     GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+    BRANCH_NAME: '${{ github.ref_name }}'
+    RUN_NUMBER: '${{ github.run_number }}'  
 
 jobs:
+    version:
+        runs-on: ubuntu-latest
+        outputs:
+            NEW_VERSION: ${{steps.version.outputs.VERSION}}
+        steps:
+            - name: Version
+              id: version
+              run: echo "VERSION=1.0.$RUN_NUMBER-$BRANCH_NAME+$RUN_NUMBER$RUN_NUMBER" >> $GITHUB_OUTPUT
+              
     first:
         uses: ./.github/workflows/first.yml
         secrets: inherit
-
+        
     second:
         uses: ./.github/workflows/second.yml
         secrets: inherit
@@ -21,7 +32,7 @@ jobs:
     release:
         runs-on: ubuntu-latest
         if: startsWith(github.ref_name, 'master')
-        needs: [first, second]
+        needs: [version, first, second]
         steps:
           - name: install nix
             uses: DeterminateSystems/nix-installer-action@v4
@@ -46,5 +57,5 @@ jobs:
             run: |
                 nix develop -c task archive \
                 BRANCH_NAME=$BRANCH_NAME \
-                VERSION=${{ needs.first.outputs.VERSION }} \
+                VERSION=${{ needs.version.outputs.NEW_VERSION }} \
                 ARTIFACTS=./dist/artifacts/*
