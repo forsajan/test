@@ -10,7 +10,7 @@ tasks:
   get_env:
     cmds:
       - |
-        if [[ {{.BRANCH_NAME}} == "releases/"*" ]]; then
+        if [[ {{.BRANCH_NAME}} == "releases/"* ]]; then
           EBSI_ENV="prod"
         elif [[ {{.BRANCH_NAME}} == 'main' ]]; then
           EBSI_ENV="prod"
