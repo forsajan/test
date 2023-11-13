@@ -49,9 +49,9 @@ jobs:
 
       - name: Publish
         run: |
-          mkdir -p ./dist/artifacts
+          mkdir -p ./publish/artifacts
           echo "testfile contents" >> testfile.txt
-          tar -czf ./dist/artifacts/testfile.txt.tar.gz testfile.txt
+          tar -czf ./publish/artifacts/testfile.txt.tar.gz testfile.txt
 
       - name: upload artifacts
         uses: actions/upload-artifact@v3
