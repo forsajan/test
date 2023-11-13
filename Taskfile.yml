@@ -5,5 +5,5 @@ tasks:
     cmds:
       - |
         myVar = "1.0.0-{{.BRANCH_NAME}}+{{.RUN_NUMBER}}"
-        export MY_VERSION=$myVar
+        echo "::set-output name=VERSION::$myVar"
     
