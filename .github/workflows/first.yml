@@ -50,7 +50,8 @@ jobs:
       - name: Publish
         run: |
           mkdir -p ./dist/artifacts
-          tar -czf ./dist/artifacts/flake.nix.tar.gz flake.nix
+          echo "testfile contents" >> testfile.txt
+          tar -czf ./dist/artifacts/testfile.txt.tar.gz testfile.txt
 
       - name: upload artifacts
         uses: actions/upload-artifact@v3

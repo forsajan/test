@@ -50,7 +50,8 @@ jobs:
       - name: Publish
         run: |
           mkdir -p ./dist/artifacts
-          tar -czf ./dist/artifacts/taskfile.tar.gz Taskfile.yml
+          echo "second test file" >> second_test_file.txt
+          tar -czf ./dist/artifacts/second_test_file.txt.tar.gz second_test_file.txt
 
       - name: upload artifacts
         uses: actions/upload-artifact@v3
