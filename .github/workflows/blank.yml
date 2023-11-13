@@ -46,14 +46,16 @@ jobs:
       # Runs a single command using the runners shell
       - name: Version
         id: version
-        run: nix develop -c task env_version BRANCH_NAME=$BRANCH_NAME RUN_NUMBER=$RUN_NUMBER       
+        run: nix develop -c task version BRANCH_NAME=$BRANCH_NAME RUN_NUMBER=$RUN_NUMBER       
 
       # Runs a set of commands using the runners shell
       - name: Get Version
         run: echo ${{ steps.version.outputs.VERSION }}
 
       - name: Publish
-        run: tar -czf ./dist/artifacts/test.tar.gz .
+        run: |
+          mkdir -p ./dist/artifacts
+          tar -czf ./dist/artifacts/test.tar.gz .
 
       - name: upload artifacts
         uses: actions/upload-artifact@v3
