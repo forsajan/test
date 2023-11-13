@@ -5,7 +5,7 @@ tasks:
     cmds:
       - |
         myVar="1.0.0-{{.BRANCH_NAME}}+{{.RUN_NUMBER}}"
-        if [[ {{.BRANCH_NAME}} == "releases/"*" ]]; then
+        if [[ {{.BRANCH_NAME}} == "releases/"* ]]; then
           EBSI_ENV="prod"
         elif [[ {{.BRANCH_NAME}} == 'master' ]]; then
           EBSI_ENV="prod"
