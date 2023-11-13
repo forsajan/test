@@ -49,12 +49,12 @@ jobs:
 
       - name: Publish
         run: |
-          mkdir -p ./publish/artifacts
+          mkdir -p ./dist/artifacts
           echo "testfile contents" >> testfile.txt
-          tar -czf ./publish/artifacts/testfile.txt.tar.gz testfile.txt
+          tar -czf ./dist/artifacts/testfile.txt.tar.gz testfile.txt
 
       - name: upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: artifacts
-          path: ./dist/
+          path: ./dist/artifacts/testfile.txt.tar.gz

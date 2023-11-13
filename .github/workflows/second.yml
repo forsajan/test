@@ -49,12 +49,12 @@ jobs:
 
       - name: Publish
         run: |
-          mkdir -p ./publish/artifacts
+          mkdir -p ./dist/artifacts
           echo "second test file" >> second_test_file.txt
-          tar -czf ./publish/artifacts/second_test_file.txt.tar.gz second_test_file.txt
+          tar -czf ./dist/artifacts/second_test_file.txt.tar.gz second_test_file.txt
 
       - name: upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: artifacts
-          path: ./dist/
+          path: ./dist/artifacts/second_test_file.txt.tar.gz
