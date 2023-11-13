@@ -1,0 +1,9 @@
+version: '3'
+
+tasks:
+  version:
+    cmds:
+      - |
+        myVar = "1.0.0-{{.BRANCH_NAME}}+{{.RUN_NUMBER}}"
+        export MY_VERSION=$myVar
+    
