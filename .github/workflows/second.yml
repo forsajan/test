@@ -49,7 +49,7 @@ jobs:
 
       - name: Publish
         run: |
-          mkdir -p ./publis/artifacts
+          mkdir -p ./publish/artifacts
           echo "second test file" >> second_test_file.txt
           tar -czf ./publish/artifacts/second_test_file.txt.tar.gz second_test_file.txt
 
