@@ -1,17 +1,10 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: second
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  workflow_call:
 
 env:
   GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
@@ -57,7 +50,7 @@ jobs:
       - name: Publish
         run: |
           mkdir -p ./dist/artifacts
-          tar -czf ./dist/artifacts/test.tar.gz .
+          tar -czf ./dist/artifacts/taskfile.tar.gz Taskfile.yml
 
       - name: upload artifacts
         uses: actions/upload-artifact@v3

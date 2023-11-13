@@ -1,0 +1,35 @@
+name: CI
+
+on:
+    push:
+        branches:
+            - main
+            - master
+            - develop
+
+jobs:
+    first:
+        uses: ./.github/workflows/first.yml
+        secrets: inherit
+
+    second:
+        uses: ./.github/workflows/second.yml
+        secrets: inherit
+        
+    release:
+        runs-on: ubuntu-latest
+        if: startsWith(github.ref_name, 'master')
+        needs: [first, second]
+        steps:
+          - name: Download Artifacts
+            id: download-artifacts
+            uses: actions/download-artifact@v3
+            with:
+                path: ./dist/artifacts
+    
+          - name: release
+            run: |
+                nix develop -c task archive \
+                BRANCH_NAME=$BRANCH_NAME \
+                VERSION=${{ needs.first.outputs.VERSION }} \
+                ARTIFACTS=./dist/artifacts/*

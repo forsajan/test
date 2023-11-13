@@ -1,0 +1,59 @@
+# This is a basic workflow to help you get started with Actions
+
+name: first
+
+# Controls when the workflow will run
+on:
+  workflow_call:
+
+env:
+  GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+  BRANCH_NAME: '${{ github.ref_name }}'
+  RUN_NUMBER: '${{ github.run_number }}'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: install nix
+        uses: DeterminateSystems/nix-installer-action@v4
+        with:
+          github-token: $GH_TOKEN
+          diagnostic-endpoint: ''
+          extra-conf: |
+            access-tokens = github.com="$GH_TOKEN"
+
+      - name: setup nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v2
+        with:
+          diagnostic-endpoint: ''      
+
+      # Runs a single command using the runners shell
+      - name: Version
+        id: version
+        run: nix develop -c task version BRANCH_NAME=$BRANCH_NAME RUN_NUMBER=$RUN_NUMBER       
+
+      # Runs a set of commands using the runners shell
+      - name: Get Version
+        run: |
+          echo ${{ steps.version.outputs.NEW_VERSION }}
+          echo ${{ steps.version.outputs.NEW_TAG }}
+
+      - name: Publish
+        run: |
+          mkdir -p ./dist/artifacts
+          tar -czf ./dist/artifacts/flake.nix.tar.gz flake.nix
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Artifacts
+          path: ./dist/artifacts 
