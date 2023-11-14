@@ -28,9 +28,12 @@ tasks:
   version:
     cmds:
       - |
-        myVer='1.0.0-{{.BRANCH_NAME}}+{{.RUN_NUMBER}}'
+        myVer={{.NEW_VERSION}}
         echo "NEW_VERSION=$myVer" >> $GITHUB_OUTPUT
         echo "NEW_TAG=v$myVer" >> $GITHUB_OUTPUT
+    vars:
+      NEW_VERSION:
+        sh: echo "1.0.0-{{.BRANCH_NAME}}+{{.RUN_NUMBER}}"
 
   archive:
     desc: Create a GitHub release
