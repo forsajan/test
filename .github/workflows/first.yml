@@ -24,7 +24,7 @@ jobs:
 
     strategy:
       matrix:
-        build_env: ${{fromJson(inputs.build_envs)}}
+        build_env: ${{ fromJSON(inputs.build_envs) }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
