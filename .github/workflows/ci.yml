@@ -26,6 +26,8 @@ jobs:
 
     first:
         uses: ./.github/workflows/first.yml
+        with:
+          build_envs: "ct,prod"
         secrets: inherit
         
     second:
