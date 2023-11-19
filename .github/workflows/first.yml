@@ -5,6 +5,10 @@ name: first
 # Controls when the workflow will run
 on:
   workflow_call:
+    inputs:
+      build_envs:
+        required: true
+        type: string
 
 env:
   GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
@@ -17,6 +21,10 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        build_env: [inputs.build_envs]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -44,6 +52,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Get Version
         run: |
+          echo ${{ matrix.build_env }}
           echo ${{ steps.version.outputs.NEW_VERSION }}
           echo ${{ steps.version.outputs.NEW_TAG }}
 
