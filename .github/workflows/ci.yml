@@ -5,7 +5,7 @@ on:
         branches:
             - main
             - master
-            - develop
+
 env:
     GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
     BRANCH_NAME: '${{ github.ref_name }}'
@@ -30,39 +30,39 @@ jobs:
           build_envs: "ct,prod"
         secrets: inherit
         
-    second:
-        uses: ./.github/workflows/second.yml
-        secrets: inherit
+    # second:
+    #     uses: ./.github/workflows/second.yml
+    #     secrets: inherit
         
-    release:
-        runs-on: ubuntu-latest
-        if: startsWith(github.ref_name, 'master')
-        needs: [version, first, second]
-        steps:
-          - uses: actions/checkout@v3
+    # release:
+    #     runs-on: ubuntu-latest
+    #     if: startsWith(github.ref_name, 'master')
+    #     needs: [version, first, second]
+    #     steps:
+    #       - uses: actions/checkout@v3
 
-          - name: install nix
-            uses: DeterminateSystems/nix-installer-action@v4
-            with:
-              github-token: $GH_TOKEN
-              diagnostic-endpoint: ''
-              extra-conf: |
-                access-tokens = github.com="$GH_TOKEN"
+    #       - name: install nix
+    #         uses: DeterminateSystems/nix-installer-action@v4
+    #         with:
+    #           github-token: $GH_TOKEN
+    #           diagnostic-endpoint: ''
+    #           extra-conf: |
+    #             access-tokens = github.com="$GH_TOKEN"
 
-          - name: setup nix cache
-            uses: DeterminateSystems/magic-nix-cache-action@v2
-            with:
-              diagnostic-endpoint: ''
+    #       - name: setup nix cache
+    #         uses: DeterminateSystems/magic-nix-cache-action@v2
+    #         with:
+    #           diagnostic-endpoint: ''
                         
-          - name: Download Artifacts
-            id: download-artifacts
-            uses: actions/download-artifact@v3
-            with:
-                path: ./dist
+    #       - name: Download Artifacts
+    #         id: download-artifacts
+    #         uses: actions/download-artifact@v3
+    #         with:
+    #             path: ./dist
     
-          - name: release
-            run: |
-                nix develop -c task archive \
-                BRANCH_NAME=$BRANCH_NAME \
-                VERSION=${{ needs.version.outputs.NEW_VERSION }} \
-                ARTIFACTS=./dist/artifacts/*
+    #       - name: release
+    #         run: |
+    #             nix develop -c task archive \
+    #             BRANCH_NAME=$BRANCH_NAME \
+    #             VERSION=${{ needs.version.outputs.NEW_VERSION }} \
+    #             ARTIFACTS=./dist/artifacts/*
