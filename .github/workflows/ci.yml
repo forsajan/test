@@ -5,7 +5,7 @@ on:
         branches:
             - main
             - master
-            - develop
+            # - develop
 
 env:
     GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
@@ -28,7 +28,7 @@ jobs:
     first:
         uses: ./.github/workflows/first.yml
         with:
-          build_envs: "['ct','prod']"
+          build_envs: "['prod']"
         secrets: inherit
         
     # second:
