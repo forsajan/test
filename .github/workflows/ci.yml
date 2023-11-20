@@ -5,7 +5,7 @@ on:
         branches:
             - main
             - master
-            # - develop
+            - develop
 
 env:
     GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
