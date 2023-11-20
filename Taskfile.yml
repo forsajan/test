@@ -1,5 +1,8 @@
 version: '3'
 
+vars:
+  CI: '{{.CI | default false}}'
+
 tasks:
   env_version:
     desc: Get Ebsi Environment name and Version
@@ -29,6 +32,11 @@ tasks:
     cmds:
       - |
         myVer={{.NEW_VERSION}}
+        echo $CI
+        echo $myVer
+        if [$CI = false]; then
+        exit 0
+        fi
         echo "NEW_VERSION=$myVer" >> $GITHUB_OUTPUT
         echo "NEW_TAG=v$myVer" >> $GITHUB_OUTPUT
     vars:
