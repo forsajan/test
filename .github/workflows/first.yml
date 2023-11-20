@@ -31,18 +31,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # - name: install nix
-      #   uses: DeterminateSystems/nix-installer-action@v4
-      #   with:
-      #     github-token: $GH_TOKEN
-      #     diagnostic-endpoint: ''
-      #     extra-conf: |
-      #       access-tokens = github.com="$GH_TOKEN"
+      - name: install nix
+        uses: DeterminateSystems/nix-installer-action@v4
+        with:
+          github-token: $GH_TOKEN
+          diagnostic-endpoint: ''
+          extra-conf: |
+            access-tokens = github.com="$GH_TOKEN"
 
-      # - name: setup nix cache
-      #   uses: DeterminateSystems/magic-nix-cache-action@v2
-      #   with:
-      #     diagnostic-endpoint: ''   
+      - name: setup nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v2
+        with:
+          diagnostic-endpoint: ''   
 
       # Runs a single command using the runners shell
       - name: Version
