@@ -2,23 +2,22 @@ version: '3'
 
 vars:
   CI: '{{.CI | default false}}'
-  EBSI_ENV: "{{.EENV | default 'ci' }}"
-    EENV:
-      sh: |
-        if [[ {{.BRANCH_NAME}} == "releases/"* ]]; then
-          EBSI_ENV="prod"
-        elif [[ {{.BRANCH_NAME}} == 'main' || {{.BRANCH_NAME}} == 'master' ]]; then
-          EBSI_ENV="prod"
-        elif [[ {{.BRANCH_NAME}} == 'staging' ]]; then
-          EBSI_ENV="staging"
-        elif [[ {{.BRANCH_NAME}} == 'develop' ]]; then
-          EBSI_ENV="ci"
-        elif [[ {{.BRANCH_NAME}} == 'qa' ]]; then
-          EBSI_ENV="qa"
-        else
-          EBSI_ENV="ci"
-        fi
-        echo $EBSI_ENV
+  EBSI_ENV:
+    sh: |
+      if [[ {{.BRANCH_NAME}} == "releases/"* ]]; then
+        EBSI_ENV="prod"
+      elif [[ {{.BRANCH_NAME}} == 'main' || {{.BRANCH_NAME}} == 'master' ]]; then
+        EBSI_ENV="prod"
+      elif [[ {{.BRANCH_NAME}} == 'staging' ]]; then
+        EBSI_ENV="staging"
+      elif [[ {{.BRANCH_NAME}} == 'develop' ]]; then
+        EBSI_ENV="ci"
+      elif [[ {{.BRANCH_NAME}} == 'qa' ]]; then
+        EBSI_ENV="qa"
+      else
+        EBSI_ENV="ci"
+      fi
+      echo $EBSI_ENV
     
 tasks:
   version:
