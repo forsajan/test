@@ -24,7 +24,7 @@ tasks:
     desc: Get Ebsi Environment name and Version
     cmds:
       - task: get_env
-      - task: version
+      - task: version2
 
   get_env:
     cmds:
