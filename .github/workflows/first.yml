@@ -47,7 +47,9 @@ jobs:
       # Runs a single command using the runners shell
       - name: Version
         id: version
-        run: nix develop -c task version BRANCH_NAME=$BRANCH_NAME RUN_NUMBER=$RUN_NUMBER       
+        env:
+          BRANCH_NAME: 'features/XXX-123/test-one'
+        run: nix develop -c task version RUN_NUMBER=$RUN_NUMBER
 
       # Runs a set of commands using the runners shell
       - name: Get Version
