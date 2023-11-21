@@ -45,7 +45,7 @@ tasks:
         echo "NEW_TAG=v$myVer" >> $GITHUB_OUTPUT
     vars:
       NEW_VERSION:
-        sh: echo "1.0.0-{{.BRANCH_NAME}}+{{.RUN_NUMBER}}"
+        sh: echo "1.0.0-{{.EBSI_ENV}}+{{.RUN_NUMBER}}"
 
   archive:
     desc: Create a GitHub release
