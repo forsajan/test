@@ -54,6 +54,7 @@ jobs:
               BRANCH_NAME=ci
             else
               BRANCH_NAME=qa
+            fi
             nix develop -c task version RUN_NUMBER=$RUN_NUMBER
 
       # Runs a set of commands using the runners shell
