@@ -51,7 +51,7 @@ jobs:
           BRANCH_NAME: 'features/XXX-123/test-one'
         run: |
             if [$RUN_NUMBER -gt 1]; then
-              BRANCH_NAME=ci
+              BRANCH_NAME=staging
             else
               BRANCH_NAME=qa
             fi
