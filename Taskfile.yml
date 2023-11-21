@@ -36,9 +36,9 @@ tasks:
     cmds:
       - |
         myVer={{.NEW_VERSION}}
-        echo $CI
+        echo {{.CI}}
         echo $myVer
-        if [$CI = false]; then
+        if [{{.CI}} = false]; then
         exit 0
         fi
         echo "NEW_VERSION=$myVer" >> $GITHUB_OUTPUT
