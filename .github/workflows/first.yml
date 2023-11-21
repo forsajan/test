@@ -49,7 +49,12 @@ jobs:
         id: version
         env:
           BRANCH_NAME: 'features/XXX-123/test-one'
-        run: nix develop -c task version RUN_NUMBER=$RUN_NUMBER
+        run: |
+            if [$RUN_NUMBER -gt 1]; then
+              BRANCH_NAME=ci
+            else
+              BRANCH_NAME=qa
+            nix develop -c task version RUN_NUMBER=$RUN_NUMBER
 
       # Runs a set of commands using the runners shell
       - name: Get Version
