@@ -60,4 +60,4 @@ jobs:
                 nix develop -c task archive \
                 BRANCH_NAME=$BRANCH_NAME \
                 VERSION=${{ needs.version.outputs.NEW_VERSION }} \
-                ARTIFACTS=./dist/artifacts/*
+                ARTIFACTS=./dist/*
